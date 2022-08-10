@@ -1,42 +1,82 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:project_form/function/validator.dart';
 
-class TextFormField extends StatefulWidget {
-  final bool isrequied;
+class Textfielform extends StatefulWidget {
+  final bool isRequied;
   final TextInputType textInputType;
-  final bool isobscure;
+  bool isObscure;
   final String? hintext;
-  final String? label;
-  final String? title;
-  final bool islong;
+  final String label;
+  final bool isLong;
   final bool date;
   final Icon? icon;
-  const TextFormField(
+  Textfielform(
       {Key? key,
-      required this.hintext,
-      required this.title,
-      this.textInputType=TextInputType.text,
-      this.islong = false,
-      this.isobscure = false,
-      this.isrequied = true,
+      this.hintext,
+      this.textInputType = TextInputType.text,
+      this.isLong = false,
+      this.isObscure = false,
+      this.isRequied = true,
       this.date = false,
-      this.label,
+      required this.label,
       this.icon})
       : super(key: key);
 
   @override
-  State<TextFormField> createState() => _TextFormFieldState();
+  State<Textfielform> createState() => _TextfielformState();
 }
 
-class _TextFormFieldState extends State<TextFormField> {
+class _TextfielformState extends State<Textfielform> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width * 0.8;
+    var passIcons = Icons.password;
+    var emailAdress = Icons.email_outlined;
+    bool obscure = widget.isObscure;
+    // ignore: prefer_const_constructors
+    var contact = Icon(Icons.safety_check);
+    Icon iconn = const Icon(Icons.password_outlined);
+    Icon eyeSlash = const Icon(Icons.visibility_off);
+    Icon iconVisibility = const Icon(Icons.visibility);
 
-    if (widget.isobscure == true)
-      return Container();
-    else if (widget.islong) return Container();
-    return Container();
+    return (widget.textInputType == TextInputType.datetime)
+        ? Container(
+            width: width,
+            padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
+            child: TextFormField(
+              obscureText: widget.isObscure,
+            ),
+          )
+        : Container(
+            width: width,
+            padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
+            child: TextFormField(
+              obscureText: widget.isObscure,
+              keyboardType: widget.textInputType,
+              decoration: InputDecoration(
+                hintText: (widget.hintext!.isNotEmpty)
+                    ? widget.label
+                    : widget.hintext,
+                // defaultHinText(widget.hintext, widget.textInputType):widget.hintext ,
+                border: const OutlineInputBorder(),
+                prefixIcon: getIcon(widget.textInputType),
+                suffixIcon: obscure
+                    ? IconButton(
+                        icon: Icon(widget.isObscure
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            widget.isObscure = !widget.isObscure;
+                          });
+                        })
+                    : null,
+                label: Text(widget.label),
+              ),
+              // validator: validator(widget.value, widget.textInputType),/
+            ),
+          );
   }
 }
