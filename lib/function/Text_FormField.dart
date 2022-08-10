@@ -9,14 +9,14 @@ class Textfielform extends StatefulWidget {
   bool isObscure;
   final String? hintext;
   final String label;
-  final bool isLong;
   final bool date;
+  final bool longText;
   final Icon? icon;
   Textfielform(
       {Key? key,
       this.hintext,
+      this.longText = false,
       this.textInputType = TextInputType.text,
-      this.isLong = false,
       this.isObscure = false,
       this.isRequied = true,
       this.date = false,
@@ -40,7 +40,7 @@ class _TextfielformState extends State<Textfielform> {
     Icon iconn = const Icon(Icons.password_outlined);
     Icon eyeSlash = const Icon(Icons.visibility_off);
     Icon iconVisibility = const Icon(Icons.visibility);
-
+    int islongText;
     return (widget.textInputType == TextInputType.datetime)
         ? Container(
             width: width,
@@ -53,6 +53,7 @@ class _TextfielformState extends State<Textfielform> {
             width: width,
             padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
             child: TextFormField(
+              maxLines: widget.longText? 8:1,
               obscureText: widget.isObscure,
               keyboardType: widget.textInputType,
               decoration: InputDecoration(
