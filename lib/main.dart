@@ -38,7 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Align(
-        child: Textfielform( label: "Data",hintext: 'sdadsas',longText: true,),
+        child: Textfielform(
+          label: 'Data',
+          textInputType: TextInputType.datetime,
+        ),
       ),
     );
   }

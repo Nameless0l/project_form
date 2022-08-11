@@ -1,8 +1,10 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_form/function/validator.dart';
 
+import 'package:project_form/function/datepicker.dart';
 class Textfielform extends StatefulWidget {
   final bool isRequied;
   final TextInputType textInputType;
@@ -42,19 +44,13 @@ class _TextfielformState extends State<Textfielform> {
     Icon iconVisibility = const Icon(Icons.visibility);
     int islongText;
     return (widget.textInputType == TextInputType.datetime)
-        ? Container(
-            width: width,
-            padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
-            child: TextFormField(
-              obscureText: widget.isObscure,
-            ),
-          )
+        ? datefeild(dateInputController: TextEditingController(),)
         : Container(
             width: width,
             padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
             child: TextFormField(
               maxLines: widget.longText? 8:1,
-              obscureText: widget.isObscure,
+              obscureText: widget.textInputType==TextInputType.visiblePassword? widget.isObscure=true: widget.isObscure,
               keyboardType: widget.textInputType,
               decoration: InputDecoration(
                 hintText: (widget.hintext!.isNotEmpty)
